@@ -36,49 +36,98 @@
 #Manejo de errores: 
 #Utilizar try-except para evitar que el programa se rompa ante entradas inválidas (por ejemplo, letras en vez de números). 
 
-#Manejo de errores: 
-#Utilizar try-except para evitar que el programa se rompa ante entradas inválidas (por ejemplo, letras en vez de números). 
-
 import os
 os.system("cls")
 
+#precions
 pokebola = 1000
 pocion = 1500
 revivir = 3000
 baya = 500
 tienda = True
+
 contador1= 0
+#Compra productos
 compra_pokebola= 0
 compra_pocion= 0
 compra_revivir = 0
 compra_baya= 0
-compra_total = (pokebola * compra_pokebola) + (pocion * compra_pocion) + (revivir * compra_revivir) + (baya * compra_baya)
+compra_final = 0
+#Total productos
+total_pokebola = 0
+total_pocion = 0
+total_revivir = 0
+total_baya = 0
+
+
+
 try:
     print("Bienvenido a la poketienda")
     contador1 = int(input("Ingrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
+    #validar opcion ingresada sea correcta
     while contador1 not in range(1,6):
         contador1 = int(input("El valor ingresado no es pokevalido\nIngrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
     
+    #poketienda
     while tienda:
+        compra_total = (pokebola * total_pokebola) + (pocion * total_pocion) + (revivir * total_revivir) + (baya * total_baya)
         if contador1 == 1:
             compra_pokebola = int(input("Seleccione cantidad de pokébolas:\n"))
+            total_pokebola = total_pokebola + compra_pokebola
+            contador1 = int(input("Ingrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
             if compra_pokebola <=0:
                 print("El valor no es pokevalido")
         elif contador1 == 2:
             compra_pocion = int(input("Seleccione cantidad de pociones:\n"))
+            total_pocion = total_pocion + compra_pocion
+            contador1 = int(input("Ingrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
             if compra_pocion <= 0:
                 print("El valor no es pokevalido")
         elif contador1 == 3:
             compra_revivir =int(input("Seleccione cantidad de revivir:\n"))
+            total_revivir =total_revivir + compra_revivir
+            contador1 = int(input("Ingrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
             if compra_revivir <=0:
                 print("El valor no es pokevalido")
         elif contador1 == 4:
             compra_baya = int(input("Seleccione cantidad de bayas:\n"))
+            total_baya = total_baya + compra_baya
+            contador1 = int(input("Ingrese unda de las siguientes opciones:\n1.Pokébola $1000\n2.Pocion $1500\n3.Revivir $3000\n4.Baya $500\n5.Finalizar compra.\n"))
             if compra_baya <= 0:
                 print("El valor no es pokevalido")
-        elif contador1 == 5:
-            print("Hasta la pokeproxima")
+        elif contador1 == 5 and compra_total == 0:
+            print(f"Hasta la pokeproxima")
             tienda = False
+        elif contador1 == 5 and compra_total > 0:
+            tienda = False
+    cantidad_producto = total_pokebola + total_pocion + total_revivir + total_baya
+    #descuentos
+    if compra_total > 5000:
+        descuento_precio = compra_total * 0.1
+    else:
+        descuento_precio = 0
+    if cantidad_producto >= 10:
+        descuento_cantidad = compra_total * 0.05
+    else:
+        descuento_cantidad = 0
+    if total_revivir >= 3:
+        descuento_revivir = (total_revivir * revivir) * 0.15
+    else:
+        descuento_revivir = 0
+    
+    if compra_total > 0:
+        print(f"Su poketotal sin descuentos es ${compra_total}")
+        print(f"Lleva {total_pokebola} pokebolas")
+        print(f"Lleva {total_pocion} pociones")
+        print(f"Lleva {total_revivir} revivir")
+        print(f"Lleva {total_baya} bayas")
+        total_final = compra_total - descuento_cantidad - descuento_precio - descuento_revivir
+        
+        print(f"Su total final es:${total_final}")
+
+
+
+
 
 
 except:
